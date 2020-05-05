@@ -5,8 +5,8 @@ import com.olehhilchenko.repository.DeveloperRepository;
 import com.olehhilchenko.repository.DeveloperRepositoryImplement;
 import com.olehhilchenko.repository.hibernate.HibernateUtilities;
 import org.hibernate.ObjectNotFoundException;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.junit.After;
 import org.junit.Test;
 
