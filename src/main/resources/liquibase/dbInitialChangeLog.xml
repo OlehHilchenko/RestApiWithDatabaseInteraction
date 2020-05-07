@@ -1,15 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-                   xmlns:pro="http://www.liquibase.org/xml/ns/pro"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
-                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
-                   http://www.liquibase.org/xml/ns/pro
-                   http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
-                   http://www.liquibase.org/xml/ns/dbchangelog
-                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="csuserpc (generated)" id="1588856044588-1">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="csuserpc (generated)" id="1588858658795-1">
         <createTable tableName="accounts">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -19,7 +10,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="csuserpc (generated)" id="1588856044588-2">
+    <changeSet author="csuserpc (generated)" id="1588858658795-2">
         <createTable tableName="developer_account">
             <column name="developer_id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -29,7 +20,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="csuserpc (generated)" id="1588856044588-3">
+    <changeSet author="csuserpc (generated)" id="1588858658795-3">
         <createTable tableName="developer_skill">
             <column name="developer_id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -39,7 +30,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="csuserpc (generated)" id="1588856044588-4">
+    <changeSet author="csuserpc (generated)" id="1588858658795-4">
         <createTable tableName="developers">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -52,7 +43,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="csuserpc (generated)" id="1588856044588-5">
+    <changeSet author="csuserpc (generated)" id="1588858658795-5">
         <createTable tableName="skills">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
