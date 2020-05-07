@@ -1,0 +1,16 @@
+language: java
+
+services:
+  - mysql
+
+before_install:
+- sudo mysql -e "CREATE USER 'ds_user'@'localhost' IDENTIFIED BY 'ds_user'; GRANT ALL PRIVILEGES ON * . * TO 'ds_user'@'localhost'; FLUSH PRIVILEGES;"
+- sudo mysql_upgrade
+- sudo service mysql restart
+- sudo mysql -e 'DROP DATABASE IF EXISTS developer_store;'
+- sudo mysql -e 'CREATE DATABASE IF NOT EXISTS developer_store;'
+
+
+
+after_failure:
+    - cat "$TCI_D_MYSQL_ROOT/mysql.err"
