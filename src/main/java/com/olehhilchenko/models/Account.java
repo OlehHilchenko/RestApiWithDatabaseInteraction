@@ -18,6 +18,20 @@ public class Account {
     public Account() {
     }
 
+    public Account(String accountData, Developer developer) {
+        this.accountData = accountData;
+        this.developer = developer;
+    }
+
+    public Developer getDeveloper() {
+
+        return developer;
+    }
+
+    public void setDeveloper(Developer developer) {
+        this.developer = developer;
+    }
+
     public Account(long id, String accountData) {
         this.id = id;
         this.accountData = accountData;

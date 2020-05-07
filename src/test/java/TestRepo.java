@@ -10,7 +10,9 @@ import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -19,7 +21,7 @@ import static org.junit.Assert.assertThrows;
 
 public class TestRepo {
 
-    DeveloperRepository developerRepository = new DeveloperRepositoryImplement();
+    private DeveloperRepository developerRepository = new DeveloperRepositoryImplement();
 
     @After
     public void tearDown() {
@@ -39,10 +41,8 @@ public class TestRepo {
         }
     }
 
-
-
     @Test
-    public void testInsertAndSelectMethods(){
+    public void testInsertAndSelectMethods() {
 
         Account account = new Account(0, "testStatus");
         Set<Skill> skills = new HashSet<>();
@@ -59,8 +59,9 @@ public class TestRepo {
                 newDeveloper.getFirstName().equals(getDeveloper.getFirstName()) &&
                 newDeveloper.getLastName().equals(getDeveloper.getLastName()));
     }
+
     @Test
-    public void testUpdateAndDeleteMethods(){
+    public void testUpdateAndDeleteMethods() {
 
         Account account = new Account(0, "testStatus");
         Set<Skill> skills = new HashSet<>();
@@ -87,4 +88,27 @@ public class TestRepo {
         });
 
     }
+/*
+    @Test
+    public void fillingDataBaseForSomeTest(){
+        // You must use this test if you install postman and you want to see, how dos work DeveloperController.
+        // This test is filling database use objects of class Developer.
+        List<Developer> developerList = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            Account account = new Account(0, "testAccountData" + i);
+            Set<Skill> skillSet = new HashSet<>();
+            for (int j = 0; j < 5; j++){
+                Skill skill = new Skill(0, "testName" + i + j);
+                skillSet.add(skill);
+            }
+            Developer developer = new Developer();
+            developer = new Developer(0, "testFirstName" + i, "testLastName" + i, account, skillSet);
+            developerList.add(developer);
+        }
+
+        for (Developer d : developerList)
+            developerRepository.insert(d);
+
+    }
+*/
 }

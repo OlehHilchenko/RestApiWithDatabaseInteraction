@@ -15,6 +15,19 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     private Set<Developer> developerSet;
 
+    public Skill(String name, Set<Developer> developerSet) {
+        this.name = name;
+        this.developerSet = developerSet;
+    }
+
+    public Set<Developer> getDeveloperSet() {
+        return developerSet;
+    }
+
+    public void setDeveloperSet(Set<Developer> developerSet) {
+        this.developerSet = developerSet;
+    }
+
     public Skill() {
     }
 

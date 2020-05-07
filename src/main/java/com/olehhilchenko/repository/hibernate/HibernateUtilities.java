@@ -10,14 +10,14 @@ public class HibernateUtilities {
     static {
         try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
-        }catch (Throwable ex){
+        } catch (Throwable ex) {
             ex.printStackTrace();
             System.err.println("Initial SessionFactory creation failed. " + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
 
-    public static SessionFactory getSessionFactory(){
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }

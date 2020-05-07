@@ -2,6 +2,7 @@ package com.olehhilchenko.models;
 
 import javax.persistence.*;
 import java.util.Set;
+
 @Entity
 @Table(name = "developers")
 public class Developer {

@@ -8,11 +8,11 @@ public interface DeveloperRepository {
 
     long insert(Developer developer);
 
-    void update (Developer developer);
+    void update(Developer developer);
 
-    Developer select (long id);
+    Developer select(long id);
 
-    void delete (Developer developer);
+    void delete(Developer developer);
 
     List<Developer> getDeveloperList();
 }
