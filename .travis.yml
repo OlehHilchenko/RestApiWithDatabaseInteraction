@@ -10,7 +10,8 @@ before_install:
 - sudo mysql -e 'DROP DATABASE IF EXISTS developer_store;'
 - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS developer_store;'
 
-
+after_install:
+  - sudo mvn liquibase:update
 
 after_failure:
     - cat "$TCI_D_MYSQL_ROOT/mysql.err"

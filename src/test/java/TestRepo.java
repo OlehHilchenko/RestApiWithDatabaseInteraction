@@ -4,12 +4,27 @@ import com.olehhilchenko.models.Skill;
 import com.olehhilchenko.repository.DeveloperRepository;
 import com.olehhilchenko.repository.DeveloperRepositoryImplement;
 import com.olehhilchenko.repository.hibernate.HibernateUtilities;
+import liquibase.Liquibase;
+import liquibase.database.Database;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.DatabaseException;
+import liquibase.exception.LiquibaseException;
+import liquibase.resource.ClassLoaderResourceAccessor;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +37,35 @@ import static org.junit.Assert.assertThrows;
 public class TestRepo {
 
     private DeveloperRepository developerRepository = new DeveloperRepositoryImplement();
+    private static boolean trig;
+
+    static {
+        trig = true;
+    }
+
+    @Before
+    public void setUp() throws IOException, SQLException, LiquibaseException {
+
+        if (trig) {
+            // Prepare the Hibernate configuration
+            StandardServiceRegistry reg = new StandardServiceRegistryBuilder().configure().build();
+            MetadataSources metaDataSrc = new MetadataSources(reg);
+
+            // Get database connection
+            Connection con = metaDataSrc.getServiceRegistry().getService(ConnectionProvider.class).getConnection();
+            JdbcConnection jdbcCon = new JdbcConnection(con);
+
+            // Initialize Liquibase and run the update
+            Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(jdbcCon);
+            Liquibase liquibase = new Liquibase("liquibase/dbInitialChangeLog.xml", new ClassLoaderResourceAccessor(), database);
+            liquibase.update("test");
+
+            // Create Hibernate SessionFactory
+            // sf = metaDataSrc.addAnnotatedClass(Author.class).addAnnotatedClass(Book.class).buildMetadata().buildSessionFactory();
+            trig = false;
+        }
+    }
+
 
     @After
     public void tearDown() {
