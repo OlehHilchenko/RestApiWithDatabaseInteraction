@@ -41,7 +41,7 @@ public class TestRepo {
     static {
         trig = true;
     }
-/*
+
     @Before
     public void setUp() throws IOException, SQLException, LiquibaseException {
 
@@ -83,7 +83,7 @@ public class TestRepo {
             session.getTransaction().commit();
         }
     }
-*/
+
     @Test
     public void testInsertAndSelectMethods() {
 
@@ -132,6 +132,8 @@ public class TestRepo {
 
     }
 
+
+    /*
     @Test
     public void fillingDataBaseForSomeTest(){
         // You must use this test if you install postman and you want to see, how dos work DeveloperServlet.
@@ -151,7 +153,7 @@ public class TestRepo {
 
         for (Developer d : developerList)
             developerRepository.insert(d);
-
     }
+    */
 
 }
