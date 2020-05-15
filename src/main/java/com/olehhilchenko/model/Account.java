@@ -1,9 +1,12 @@
-package com.olehhilchenko.models;
+package com.olehhilchenko.model;
+
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "accounts")
+@Proxy(lazy = false)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

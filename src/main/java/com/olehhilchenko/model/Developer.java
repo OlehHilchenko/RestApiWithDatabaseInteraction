@@ -1,4 +1,4 @@
-package com.olehhilchenko.models;
+package com.olehhilchenko.model;
 
 import javax.persistence.*;
 import java.util.Set;

@@ -1,17 +1,17 @@
-package com.olehhilchenko.repository;
+package com.olehhilchenko.repository.hibernate;
 
-import com.olehhilchenko.models.Developer;
-import com.olehhilchenko.repository.hibernate.HibernateUtilities;
+import com.olehhilchenko.model.Developer;
+import com.olehhilchenko.repository.DeveloperRepository;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import java.util.List;
 
-public class DeveloperRepositoryImplement implements DeveloperRepository {
+public class DeveloperDAOImpl implements DeveloperRepository {
 
     @Override
     public long insert(Developer developer) {
-        try (Session session = HibernateUtilities.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             long id;
             session.beginTransaction();
             session.save(developer);
@@ -23,7 +23,7 @@ public class DeveloperRepositoryImplement implements DeveloperRepository {
 
     @Override
     public void update(Developer developer) {
-        try (Session session = HibernateUtilities.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
             session.saveOrUpdate(developer);
             session.getTransaction().commit();
@@ -31,8 +31,8 @@ public class DeveloperRepositoryImplement implements DeveloperRepository {
     }
 
     @Override
-    public Developer select(long id) {
-        try (Session session = HibernateUtilities.getSessionFactory().getCurrentSession()) {
+    public Developer select(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
             Developer result = session.load(Developer.class, id);
             Hibernate.initialize(result.getSkills());
@@ -43,7 +43,7 @@ public class DeveloperRepositoryImplement implements DeveloperRepository {
 
     @Override
     public void delete(Developer developer) {
-        try (Session session = HibernateUtilities.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
             session.delete(developer);
             session.getTransaction().commit();
@@ -51,8 +51,8 @@ public class DeveloperRepositoryImplement implements DeveloperRepository {
     }
 
     @Override
-    public List<Developer> getDeveloperList() {
-        try (Session session = HibernateUtilities.getSessionFactory().getCurrentSession()) {
+    public List<Developer> getAll() {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
             List<Developer> result = session.createQuery("FROM Developer").list();
             for (Developer developer : result) {

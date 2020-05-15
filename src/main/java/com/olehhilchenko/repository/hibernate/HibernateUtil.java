@@ -3,7 +3,7 @@ package com.olehhilchenko.repository.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateUtilities {
+public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
 

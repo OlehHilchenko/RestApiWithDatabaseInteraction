@@ -23,9 +23,9 @@
 
         <property name="hibernate.current_session_context_class">thread</property>
         <!--Mapping files-->
-        <mapping class="com.olehhilchenko.models.Developer"/>
-        <mapping class="com.olehhilchenko.models.Account"/>
-        <mapping class="com.olehhilchenko.models.Skill"/>
+        <mapping class="com.olehhilchenko.model.Developer"/>
+        <mapping class="com.olehhilchenko.model.Account"/>
+        <mapping class="com.olehhilchenko.model.Skill"/>
 
     </session-factory>
 </hibernate-configuration>

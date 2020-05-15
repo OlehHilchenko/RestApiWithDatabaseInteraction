@@ -1,10 +1,13 @@
-package com.olehhilchenko.models;
+package com.olehhilchenko.model;
+
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "skills")
+@Proxy(lazy = false)
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

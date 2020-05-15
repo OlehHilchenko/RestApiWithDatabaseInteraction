@@ -6,13 +6,29 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <servlet>
-        <servlet-name>DeveloperController</servlet-name>
-        <servlet-class>com.olehhilchenko.servlet.DeveloperController</servlet-class>
+        <servlet-name>DeveloperServlet</servlet-name>
+        <servlet-class>com.olehhilchenko.servlet.DeveloperServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccountServlet</servlet-name>
+        <servlet-class>com.olehhilchenko.servlet.AccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SkillServlet</servlet-name>
+        <servlet-class>com.olehhilchenko.servlet.SkillServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>DeveloperController</servlet-name>
-        <url-pattern>/Dev/*</url-pattern>
+        <servlet-name>DeveloperServlet</servlet-name>
+        <url-pattern>/Developer/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountServlet</servlet-name>
+        <url-pattern>/Account/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SkillServlet</servlet-name>
+        <url-pattern>/Skill/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

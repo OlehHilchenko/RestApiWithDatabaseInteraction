@@ -1,11 +1,12 @@
 package com.olehhilchenko.servlet;
 
 import com.google.gson.Gson;
-import com.olehhilchenko.models.Account;
-import com.olehhilchenko.models.Developer;
-import com.olehhilchenko.models.Skill;
-import com.olehhilchenko.service.DeveloperService;
-import com.olehhilchenko.service.DeveloperServiceImplement;
+import com.olehhilchenko.controller.GenericController;
+import com.olehhilchenko.model.Account;
+import com.olehhilchenko.model.Developer;
+import com.olehhilchenko.model.Skill;
+import com.olehhilchenko.service.GenericService;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,13 +17,17 @@ import java.io.PrintWriter;
 import java.util.*;
 
 
-public class DeveloperController extends HttpServlet {
+public class DeveloperServlet extends HttpServlet {
 
+    private static final Developer d = new Developer();
+    private static GenericService developerService;
 
-    private DeveloperService developerService = new DeveloperServiceImplement();
+    static {
+        developerService = GenericController.getService(d);
+    }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -30,14 +35,14 @@ public class DeveloperController extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         if (id > 0) {
-            Developer developer = developerService.get(id);
+            Developer developer = (Developer) developerService.getById(id);
             if (developer == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
             out.println(developerProxyHibernateToDeveloperToString(developer));
         } else {
-            List<Developer> developers = developerService.getDeveloperList();
+            List<Developer> developers = developerService.getAll();
             if (developers == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return;
@@ -66,7 +71,7 @@ public class DeveloperController extends HttpServlet {
         return gson.toJson(result);
     }
 
-    private long parserURL(String url) throws ServletException {
+    private long parserURL(String url) {
         StringTokenizer stringTokenizer = new StringTokenizer(url, "/");
         stringTokenizer.nextToken();
         if (stringTokenizer.hasMoreTokens()) {
@@ -77,11 +82,11 @@ public class DeveloperController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String inline = "";
         try (Scanner sc = new Scanner(req.getInputStream());) {
             while (sc.hasNext()) {
-                inline += sc.nextLine();
+                inline += (sc.nextLine());
             }
         }
 
@@ -92,31 +97,31 @@ public class DeveloperController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String inline = "";
         try (Scanner sc = new Scanner(req.getInputStream());) {
             while (sc.hasNext()) {
-                inline += sc.nextLine();
+                inline += (sc.nextLine());
             }
         }
 
         Gson gson = new Gson();
         Developer developer = gson.fromJson(inline, Developer.class);
 
-        long id = developerService.add(developer);
+        long id = developerService.save(developer);
         if (id > 0)
             resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         long id = parserURL(req.getRequestURI());
         if (id > 0) {
-            Developer deletedDeveloper = developerService.get(id);
+            Developer deletedDeveloper = (Developer) developerService.getById(id);
             if (deletedDeveloper == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             } else {
-                developerService.remove(deletedDeveloper);
+                developerService.deleteById(deletedDeveloper);
                 resp.setStatus(HttpServletResponse.SC_OK);
             }
         } else {

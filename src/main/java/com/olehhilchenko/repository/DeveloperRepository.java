@@ -1,18 +1,8 @@
 package com.olehhilchenko.repository;
 
-import com.olehhilchenko.models.Developer;
+import com.olehhilchenko.model.Developer;
 
-import java.util.List;
 
-public interface DeveloperRepository {
+public interface DeveloperRepository extends GenericRepository<Long, Developer> {
 
-    long insert(Developer developer);
-
-    void update(Developer developer);
-
-    Developer select(long id);
-
-    void delete(Developer developer);
-
-    List<Developer> getDeveloperList();
 }

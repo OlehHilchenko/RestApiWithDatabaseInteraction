@@ -1,14 +1,13 @@
-import com.olehhilchenko.models.Account;
-import com.olehhilchenko.models.Developer;
-import com.olehhilchenko.models.Skill;
+import com.olehhilchenko.model.Account;
+import com.olehhilchenko.model.Developer;
+import com.olehhilchenko.model.Skill;
 import com.olehhilchenko.repository.DeveloperRepository;
-import com.olehhilchenko.repository.DeveloperRepositoryImplement;
-import com.olehhilchenko.repository.hibernate.HibernateUtilities;
+import com.olehhilchenko.repository.hibernate.DeveloperDAOImpl;
+import com.olehhilchenko.repository.hibernate.HibernateUtil;
 import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
-import liquibase.exception.DatabaseException;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import org.hibernate.ObjectNotFoundException;
@@ -36,13 +35,13 @@ import static org.junit.Assert.assertThrows;
 
 public class TestRepo {
 
-    private DeveloperRepository developerRepository = new DeveloperRepositoryImplement();
+    private DeveloperRepository developerRepository = new DeveloperDAOImpl();
     private static boolean trig;
 
     static {
         trig = true;
     }
-
+/*
     @Before
     public void setUp() throws IOException, SQLException, LiquibaseException {
 
@@ -69,7 +68,7 @@ public class TestRepo {
 
     @After
     public void tearDown() {
-        try (Session session = HibernateUtilities.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
             Query query = session.createSQLQuery("TRUNCATE TABLE developers;");
             query.executeUpdate();
@@ -84,7 +83,7 @@ public class TestRepo {
             session.getTransaction().commit();
         }
     }
-
+*/
     @Test
     public void testInsertAndSelectMethods() {
 
@@ -116,12 +115,12 @@ public class TestRepo {
         final long newDevID = developerRepository.insert(newDeveloper);
         System.out.println(newDevID);
 
-        System.out.println(developerRepository.getDeveloperList());
+        System.out.println(developerRepository.getAll());
         newDeveloper.setFirstName("valueChanged");
         newDeveloper.setLastName("valueChanged");
         developerRepository.update(newDeveloper);
 
-        System.out.println(developerRepository.getDeveloperList());
+        System.out.println(developerRepository.getAll());
         Developer getDeveloper = developerRepository.select(newDevID);
         assertTrue("valueChanged".equals(getDeveloper.getFirstName()) &&
                 "valueChanged".equals(getDeveloper.getLastName()));
@@ -132,10 +131,10 @@ public class TestRepo {
         });
 
     }
-/*
+
     @Test
     public void fillingDataBaseForSomeTest(){
-        // You must use this test if you install postman and you want to see, how dos work DeveloperController.
+        // You must use this test if you install postman and you want to see, how dos work DeveloperServlet.
         // This test is filling database use objects of class Developer.
         List<Developer> developerList = new ArrayList<>();
         for (int i = 0; i < 5; i++){
@@ -154,5 +153,5 @@ public class TestRepo {
             developerRepository.insert(d);
 
     }
-*/
+
 }
